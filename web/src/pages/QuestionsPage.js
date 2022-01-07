@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-
-import { fetchQuestions } from '../actions/questionActions'
+import { fetchQuestions } from '../actions/index.js';
 import { Question } from '../components/Question'
 
 const QuestionsPage = ({ dispatch, loading, questions, hasErrors }) => {
@@ -25,9 +24,9 @@ const QuestionsPage = ({ dispatch, loading, questions, hasErrors }) => {
 }
 
 const mapStateToProps = state => ({
-    loading: state.question.loading,
-    questions: state.question.questions,
-    hasErrors: state.question.hasErrors,
+    loading: state.loading,
+    questions: state.questions,
+    hasErrors: state.hasErrors,
 })
 
-export default connect(mapStateToProps)(QuestionsPage)
+export default connect(mapStateToProps)(QuestionsPage);

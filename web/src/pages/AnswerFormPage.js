@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import {  fetchQuestion, postAnswer } from '../actions/questionActions'
-import { connect } from 'react-redux'
-import { Question } from '../components/Question'
+import { fetchQuestion, postAnswer } from '../actions/index.js';
+import { connect } from 'react-redux';
+import { Question } from '../components/Question';
 
 const FormPage = ({ dispatch, loading, redirect, match,hasErrors, question, userId }) => {
     const { register, handleSubmit } = useForm();
@@ -54,11 +54,11 @@ const FormPage = ({ dispatch, loading, redirect, match,hasErrors, question, user
 }
 
 const mapStateToProps = state => ({
-    loading: state.question.loading,
-    redirect: state.question.redirect,
-    question: state.question.question,
-    hasErrors: state.question.hasErrors,
-    userId: state.auth.uid
+    loading: state.loading,
+    redirect: state.redirect,
+    question: state.question,
+    hasErrors: state.hasErrors,
+    userId: state.uid
 })
 
-export default connect(mapStateToProps)(FormPage)
+export default connect(mapStateToProps)(FormPage);

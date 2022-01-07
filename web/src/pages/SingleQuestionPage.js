@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-
-import { fetchQuestion } from '../actions/questionActions'
-
-import { Question } from '../components/Question'
-import { Answer } from '../components/Answer'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchQuestion } from '../actions/index.js';
+import { Question } from '../components/Question';
+import { Answer } from '../components/Answer';
+import { Link } from 'react-router-dom';
 
 const SingleQuestionPage = ({
   match,
@@ -47,10 +45,10 @@ const SingleQuestionPage = ({
 }
 
 const mapStateToProps = state => ({
-  question: state.question.question,
-  loading: state.question.loading,
-  hasErrors: state.question.hasErrors,
-  userId: state.auth.uid
+  question: state.question,
+  loading: state.loading,
+  hasErrors: state.hasErrors,
+  userId: state.uid
 })
 
 export default connect(mapStateToProps)(SingleQuestionPage)

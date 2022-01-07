@@ -1,22 +1,21 @@
-import React from 'react'
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from 'react-router-dom'
+} from 'react-router-dom';
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
-import { login, logout } from './actions/authActions';
-
-import { PublicNavbar, PrivateNavbar } from './components/Navbar'
-import HomePage from './pages/HomePage'
-import SingleQuestionPage from './pages/SingleQuestionPage'
-import QuestionsPage from './pages/QuestionsPage'
-import QuestionFormPage from './pages/QuestionFormPage'
-import AnswerFormPage from './pages/AnswerFormPage'
-import OwnerQuestionsPage from './pages/OwnerQuestionsPage'
+import { login, logout } from './actions/index.js';
+import { PublicNavbar, PrivateNavbar } from './components/Navbar';
+import HomePage from './pages/HomePage';
+import SingleQuestionPage from './pages/SingleQuestionPage';
+import QuestionsPage from './pages/QuestionsPage';
+import QuestionFormPage from './pages/QuestionFormPage';
+import AnswerFormPage from './pages/AnswerFormPage';
+import OwnerQuestionsPage from './pages/OwnerQuestionsPage';
 import { useAuthState } from "react-firebase-hooks/auth";
 
 firebase.initializeApp({
@@ -95,4 +94,4 @@ function SignOut({ dispatch }) {
 }
 
 
-export default App
+export default App;

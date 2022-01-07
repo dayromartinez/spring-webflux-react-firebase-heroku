@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-
-import { fetchOwnerQuestions, deleteQuestion } from '../actions/questionActions'
-import { Question } from '../components/Question'
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchOwnerQuestions, deleteQuestion } from '../actions/index.js';
+import { Question } from '../components/Question';
 
 const OwnerQuestionsPage = ({ dispatch, loading, questions, hasErrors, redirect, userId }) => {
     useEffect(() => {
@@ -39,11 +38,11 @@ const OwnerQuestionsPage = ({ dispatch, loading, questions, hasErrors, redirect,
 }
 
 const mapStateToProps = state => ({
-    loading: state.question.loading,
-    questions: state.question.questions,
-    hasErrors: state.question.hasErrors,
-    redirect: state.question.redirect,
-    userId: state.auth.uid
+    loading: state.loading,
+    questions: state.questions,
+    hasErrors: state.hasErrors,
+    redirect: state.redirect,
+    userId: state.uid
 })
 
 export default connect(mapStateToProps)(OwnerQuestionsPage)

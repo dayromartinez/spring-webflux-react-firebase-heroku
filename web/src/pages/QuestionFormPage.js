@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { postQuestion } from '../actions/questionActions'
-import { connect } from 'react-redux'
+import { postQuestion } from '../actions/index.js';
+import { connect } from 'react-redux';
 
 const FormPage = ({ dispatch, loading, redirect, userId }) => {
     const { register, handleSubmit } = useForm();
@@ -60,10 +60,10 @@ const FormPage = ({ dispatch, loading, redirect, userId }) => {
 }
 
 const mapStateToProps = state => ({
-    loading: state.question.loading,
-    redirect: state.question.redirect,
-    hasErrors: state.question.hasErrors,
-    userId: state.auth.uid
+    loading: state.loading,
+    redirect: state.redirect,
+    hasErrors: state.hasErrors,
+    userId: state.uid
 })
 
-export default connect(mapStateToProps)(FormPage)
+export default connect(mapStateToProps)(FormPage);
