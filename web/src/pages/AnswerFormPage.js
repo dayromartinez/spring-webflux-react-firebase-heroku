@@ -2,18 +2,35 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { fetchQuestion, postAnswer } from '../actions/index.js';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Question } from '../components/Question';
+import Swal from "sweetalert2";
 
-const FormPage = ({ dispatch, loading, redirect, match,hasErrors, question, userId }) => {
+
+const FormPage = ({ match }) => {
+
+
     const { register, handleSubmit } = useForm();
-    const { id } = match.params
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    const onSubmit = data => {
-        data.userId =  userId;
+    const loading = useSelector((state) => state.loading);
+    const redirect = useSelector((state) => state.redirect);
+    const hasErrors = useSelector((state) => state.hasErrors);
+    const question = useSelector((state) => state.question);
+    const userId = useSelector((state) => state.uid);
+    const { id } = match.params;
+    
+
+    const onSubmit = (data) => {
+        data.userId = userId;
         data.questionId = id;
         dispatch(postAnswer(data));
+        Swal.fire({
+            icon: "success",
+            title: "Respuesta creada!",
+            text: `La respuesta para esta pregunta ha sido registrada con éxito :)`,
+        });
     };
 
     useEffect(() => {
@@ -27,8 +44,8 @@ const FormPage = ({ dispatch, loading, redirect, match,hasErrors, question, user
     }, [redirect, history])
 
     const renderQuestion = () => {
-        if (loading.question) return <p>Loading question...</p>
-        if (hasErrors.question) return <p>Unable to display question.</p>
+        if (loading.question) return <p>Cargando pregunta...</p>
+        if (hasErrors.question) return <p>No es posible visualizar esta pregunta.</p>
 
         return <Question question={question} />
     }
@@ -37,15 +54,15 @@ const FormPage = ({ dispatch, loading, redirect, match,hasErrors, question, user
     return (
         <section>
             {renderQuestion()}
-            <h1>New Answer</h1>
+            <h1>Nueva Respuesta</h1>
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                    <label for="answer">Answer</label>
+                    <label for="answer">Respuesta</label>
                     <textarea id="answer" {...register("answer", { required: true, maxLength: 300 })} />
                 </div>
-                <button type="submit" className="button" disabled={loading} >{
-                    loading ? "Saving ...." : "Save"
+                <button type="submit" className="button" disabled={loading}>{
+                    loading ? "Guardando...." : "Enviar"
                 }</button>
             </form>
         </section>
@@ -53,12 +70,4 @@ const FormPage = ({ dispatch, loading, redirect, match,hasErrors, question, user
     );
 }
 
-const mapStateToProps = state => ({
-    loading: state.loading,
-    redirect: state.redirect,
-    question: state.question,
-    hasErrors: state.hasErrors,
-    userId: state.uid
-})
-
-export default connect(mapStateToProps)(FormPage);
+export default FormPage;

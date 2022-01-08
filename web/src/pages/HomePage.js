@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 const HomePage = ({children}) => (
   <section>
-    <h1>Home</h1>
+    <h1>Inicio</h1>
     <div>
       {children}
     </div>
-    <p>welcome to the question and answer app.</p>
+    <h3 style={{'fontStyle': 'italic'}}>¡Bienvenid@ a "Quién quiere ser Sofkiano"!</h3>
     <Link to="/questions" className="button">
-      View Questions
+      Ver Preguntas
     </Link>
   
   </section>
