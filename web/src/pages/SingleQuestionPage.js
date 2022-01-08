@@ -1,56 +1,52 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchQuestion } from '../actions/index.js';
+import { Question } from '../components/Question';
+import { Answer } from '../components/Answer';
+import { Link } from 'react-router-dom';
 
-import { fetchQuestion } from '../actions/questionActions'
+const SingleQuestionPage = ({ match }) => {
 
-import { Question } from '../components/Question'
-import { Answer } from '../components/Answer'
-import { Link } from 'react-router-dom'
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.loading);
+  const hasErrors = useSelector((state) => state.hasErrors);
+  const question = useSelector((state) => state.question);
+  const userId = useSelector((state) => state.uid);
+  const { id } = match.params;
 
-const SingleQuestionPage = ({
-  match,
-  dispatch,
-  question,
-  hasErrors,
-  loading,
-  userId
-}) => {
-  const { id } = match.params
+
   useEffect(() => {
     dispatch(fetchQuestion(id))
   }, [dispatch, id])
 
   const renderQuestion = () => {
-    if (loading.question) return <p>Loading question...</p>
-    if (hasErrors.question) return <p>Unable to display question.</p>
+    if (loading.question) return <p>Cargando pregunta...</p>
+    if (hasErrors.question) return <p>No ha sido posible mostrar esta pregunta.</p>
 
-    return <Question question={question} />
+    return <Question question={question}/>
   }
 
   const renderAnswers = () => {
     return (question.answers && question.answers.length) ? question.answers.map(answer => (
       <Answer key={answer.id} answer={answer} />
-    )) : <p>Empty answer!</p>;
+    )) : <p>¡Aún no hay respuestas registradas! No lo pienses más y deja una posible respuesta
+      para esta pregunta.
+    </p>;
   }
 
   return (
-    <section>
-      {renderQuestion()}
-      {userId && <Link to={"/answer/" + id} className="button right">
-        Reply
-      </Link>}
+    <div className='div_pregunta_componente'>
+      <section>
+        {renderQuestion()}
+        {userId && <Link to={"/answer/" + id} className="button right">
+          Responder
+        </Link>}
 
-      <h2>Answers</h2>
-      {renderAnswers()}
-    </section>
+        <h2>Respuestas</h2>
+        {renderAnswers()}
+      </section>
+    </div>
   )
 }
 
-const mapStateToProps = state => ({
-  question: state.question.question,
-  loading: state.question.loading,
-  hasErrors: state.question.hasErrors,
-  userId: state.auth.uid
-})
-
-export default connect(mapStateToProps)(SingleQuestionPage)
+export default SingleQuestionPage;

@@ -1,12 +1,25 @@
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const LOADING = 'LOADING';
+export const LOADED_SUCCESS = 'LOADED_SUCCESS';
+export const LOADED_FAILURE = 'LOADED_FAILURE';
+
 const URL_BASE = 'http://localhost:8080';
 
-export const LOADING = 'LOADING'
-export const LOADED_SUCCESS = 'LOADED_SUCCESS'
-export const LOADED_FAILURE = 'LOADED_FAILURE'
+//Acciones autenticacion
+export const login = (email, uid) => ({ 
+    type: LOGIN, payload: {email, uid} 
+});
 
-export const loading = () => ({ type: LOADING })
+export const logout = () => ({
+    type: LOGOUT
+});
 
-export const success = payload => ({
+
+//Acciones preguntas
+export const loading = () => ({ type: LOADING });
+
+export const success = (payload) => ({
     type: LOADED_SUCCESS,
     payload
 });
@@ -116,4 +129,3 @@ export function postAnswer(answer) {
         }
     }
 }
-
