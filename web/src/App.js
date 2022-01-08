@@ -9,7 +9,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import { login, logout } from './actions/index.js';
-import { PublicNavbar, PrivateNavbar } from './components/Navbar';
+import { PublicNavbar, PrivateNavbar, Footer } from './components/Navbar';
 import HomePage from './pages/HomePage';
 import SingleQuestionPage from './pages/SingleQuestionPage';
 import QuestionsPage from './pages/QuestionsPage';
@@ -64,6 +64,7 @@ const App = ({ dispatch }) => {
           </Switch>
         </>
       }
+      <Footer />
     </Router>
   )
 }

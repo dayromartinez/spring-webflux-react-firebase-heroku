@@ -35,15 +35,17 @@ const SingleQuestionPage = ({ match }) => {
   }
 
   return (
-    <section>
-      {renderQuestion()}
-      {userId && <Link to={"/answer/" + id} className="button right">
-        Responder
-      </Link>}
+    <div className='div_pregunta_componente'>
+      <section>
+        {renderQuestion()}
+        {userId && <Link to={"/answer/" + id} className="button right">
+          Responder
+        </Link>}
 
-      <h2>Respuestas</h2>
-      {renderAnswers()}
-    </section>
+        <h2>Respuestas</h2>
+        {renderAnswers()}
+      </section>
+    </div>
   )
 }
 
