@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuestion } from '../actions/index.js';
 import { Question } from '../components/Question';
@@ -15,11 +15,11 @@ const SingleQuestionPage = ({ match }) => {
   const question = useSelector((state) => state.question);
   const userId = useSelector((state) => state.uid);
   const { id } = match.params;
-
+  const [clickDelete, setClickDelete] = useState(0);
 
   useEffect(() => {
     dispatch(fetchQuestion(id))
-  }, [dispatch, id])
+  }, [dispatch, id, clickDelete])
 
   const renderQuestion = () => {
     if (loading.question) return <p>Cargando pregunta...</p>
@@ -47,6 +47,7 @@ const SingleQuestionPage = ({ match }) => {
             });
         } else if (result.isDenied) {
             dispatch(deleteAnswer(id));
+            setClickDelete(clickDelete + 1);
             Swal.fire({
                 icon: "info",
                 title: "Respuesta eliminada!",
