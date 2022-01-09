@@ -39,10 +39,12 @@ const OwnerQuestionsPage = () => {
     }
 
     return (
-        <section>
-            <h1>Mis Preguntas</h1>
-            {renderQuestions()}
-        </section>
+        <div className='div_pregunta_componente'>
+            <section>
+                <h1>Mis Preguntas</h1>
+                {renderQuestions()}
+            </section>
+        </div>
     )
 }
 
