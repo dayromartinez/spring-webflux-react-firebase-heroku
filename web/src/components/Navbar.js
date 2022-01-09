@@ -29,7 +29,7 @@ export const Footer = () => (
   <nav className='navfooter'>
     <a href="https://www.sofka.com.co/es/sofka-university/" className='link_imagen_footer'><img alt='Logo Sofka' src={sofkau} className='millonario_imagen'/></a>
     <section>
-      <h6 className='footertext'>© SofkaU 2022. Todos los derechos reservados.</h6>
+      <h6 className='footertext'>© SofkaU 2022. Aplicación web optimizada por Dayro Martínez. Todos los derechos reservados.</h6>
     </section>
   </nav>
 )
