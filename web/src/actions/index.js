@@ -4,7 +4,7 @@ export const LOADING = 'LOADING';
 export const LOADED_SUCCESS = 'LOADED_SUCCESS';
 export const LOADED_FAILURE = 'LOADED_FAILURE';
 
-const URL_BASE = 'http://localhost:8080';
+const URL_BASE = 'https://preguntas-app.herokuapp.com';
 
 //Acciones autenticacion
 export const login = (email, uid) => ({ 
