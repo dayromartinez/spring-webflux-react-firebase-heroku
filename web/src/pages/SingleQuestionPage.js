@@ -15,10 +15,12 @@ const SingleQuestionPage = ({ match }) => {
   const question = useSelector((state) => state.question);
   const userId = useSelector((state) => state.uid);
   const { id } = match.params;
-  const [clickDelete, setClickDelete] = useState(0);
+  const [clickDelete, setClickDelete] = useState(false);
 
   useEffect(() => {
     dispatch(fetchQuestion(id))
+    setClickDelete(false);
+    console.log(clickDelete);
   }, [dispatch, id, clickDelete])
 
   const renderQuestion = () => {
@@ -47,8 +49,8 @@ const SingleQuestionPage = ({ match }) => {
             });
         } else if (result.isDenied) {
             dispatch(deleteAnswer(id));
-            setClickDelete(clickDelete + 1);
             console.log(clickDelete);
+            setClickDelete(true);
             Swal.fire({
                 icon: "info",
                 title: "Respuesta eliminada!",
