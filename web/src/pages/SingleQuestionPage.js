@@ -48,6 +48,7 @@ const SingleQuestionPage = ({ match }) => {
         } else if (result.isDenied) {
             dispatch(deleteAnswer(id));
             setClickDelete(clickDelete + 1);
+            console.log(clickDelete);
             Swal.fire({
                 icon: "info",
                 title: "Respuesta eliminada!",
