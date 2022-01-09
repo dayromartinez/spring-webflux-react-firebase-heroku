@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 export const Answer = ({ answer, excerpt, onDelete }) => {
 
   const userId = useSelector((state) => state.uid);
-  
+  console.log(answer.id);
   return (
     <aside className="answer">
       <p>{answer.answer}</p>

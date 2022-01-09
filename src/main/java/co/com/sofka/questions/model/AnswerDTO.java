@@ -21,10 +21,11 @@ public class AnswerDTO {
 
     }
 
-    public AnswerDTO(@NotBlank String questionId, @NotBlank String userId, @NotBlank String answer) {
+    public AnswerDTO(@NotBlank String questionId, @NotBlank String userId, @NotBlank String answer,String id) {
         this.userId = userId;
         this.questionId = questionId;
         this.answer = answer;
+        this.id = id;
     }
 
     public Integer getPosition() {
