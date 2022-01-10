@@ -1,25 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useHistory } from "react-router-dom";
+import { loginWithEmail } from '../actions/index.js';
 import Swal from "sweetalert2";
 
 
 export const FormLogin = () => {
 
     const dispatch = useDispatch();
-    const auth = firebase.auth();
-    const [user] = useAuthState(auth);
-    //const loading = useSelector((state) => state.loading);
-    //const hasErrors = useSelector((state) => state.hasErrors);
+    const history = useHistory();
+    const redirect = useSelector((state) => state.redirect);
+
     const [state, setState] = useState({
         email: "",
         password: "",
         clickLogin: false,
     });
+
+    useEffect(() => {
+        if (redirect) {
+            history.push(redirect);
+        }
+    }, [redirect, history])
+
+    useEffect(() => {
+        if(state.clickLogin){
+            dispatch(loginWithEmail(state.email, state.password));
+            setState({
+                email: "",
+                password: "",
+                clickLogin: false,
+            })
+        }
+    },[state.clickLogin])
     
     const onSubmit = (e) => {
         e.preventDefault();
@@ -30,8 +44,6 @@ export const FormLogin = () => {
                 ...state,
                 clickLogin: true
             })
-            
-            
         }else{
             setState({
                 ...state,
@@ -43,8 +55,6 @@ export const FormLogin = () => {
                 text: `El campo correo debe tener la siguiente estructura: "correo@email.com"`,
             });
         }
-        console.log(result);
-        console.log("click");
     };
 
     const onChange = (e) => {

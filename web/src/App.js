@@ -5,6 +5,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
@@ -20,6 +21,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { FcGoogle } from "react-icons/fc";
 import { FormLogin } from "./components/FormLogin.js";
 import { UserFormPage } from "./pages/UserFormPage.js";
+import Swal from "sweetalert2";
 
 firebase.initializeApp({
   apiKey: "AIzaSyC0tsd2w3eGHPZf1i7w4DOPBkMh8xKPCmc",
@@ -35,10 +37,16 @@ const auth = firebase.auth();
 
 
 const App = ({ dispatch }) => {
+
+  
   const [user] = useAuthState(auth);
   if(user){
     dispatch(login(user.email, user.uid, user.displayName, user.photoURL));
-    console.log(user);
+    Swal.fire({
+      icon: "success",
+      title: "Sesión iniciada!",
+      text: `Bienvenid@ de nuevo a 'Quién quiere ser Sofkiano', ${user.displayName ? user.displayName : "querido usuario!"}!`,
+    })
   }
   return (
     <Router>
@@ -86,6 +94,7 @@ function SignIn() {
 }
 
 function SignOut({ dispatch }) {
+  const name = useSelector((state) => state.name);
   return (
     auth.currentUser && (
       <button
@@ -93,6 +102,11 @@ function SignOut({ dispatch }) {
         onClick={() => {
           dispatch(logout())
           auth.signOut();
+          Swal.fire({
+            icon: "info",
+            title: "Sesión finalizada!",
+            text: `Hasta pronto, ${name ? name : "querido usuario!"}!`,
+          })
         }}
       >
         Cerrar Sesión

@@ -40,7 +40,6 @@ const QuestionsPage = () => {
 
         if(busqueda === ""){
             return questions.map(question => {
-                console.log(question);
                 return (
                     <div className='contenedor_pregunta'>
                         <div className='contenedor_info_usuario'>

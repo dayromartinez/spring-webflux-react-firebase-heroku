@@ -9,13 +9,26 @@ export const LOADED_FAILURE = 'LOADED_FAILURE';
 export const FILTER_CATEGORY = 'FILTER_CATEGORY';
 export const SEARCH_QUESTIONS = 'SEARCH_QUESTIONS';
 
-
 const URL_BASE = 'https://preguntas-app.herokuapp.com';
 
 //Acciones autenticacion
 export const login = (email, uid, name, img) => ({ 
     type: LOGIN, payload: {email, uid, name, img} 
 });
+
+export const loginWithEmail = (email, password) => {
+    return async dispatch => {
+        dispatch(loading())
+        const auth = firebase.auth();
+        try {
+            console.log(email, password);
+            await auth.signInWithEmailAndPassword(email, password);
+            dispatch(success({email, redirect: '/'}));
+        } catch (error) {
+            dispatch(failure())
+        }
+    }
+};
 
 export const logout = () => ({
     type: LOGOUT
