@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 import Swal from "sweetalert2";
 
 
 export const FormLogin = () => {
 
     const dispatch = useDispatch();
+    const auth = firebase.auth();
+    const [user] = useAuthState(auth);
     //const loading = useSelector((state) => state.loading);
     //const hasErrors = useSelector((state) => state.hasErrors);
     const [state, setState] = useState({
@@ -24,6 +30,8 @@ export const FormLogin = () => {
                 ...state,
                 clickLogin: true
             })
+            
+            
         }else{
             setState({
                 ...state,

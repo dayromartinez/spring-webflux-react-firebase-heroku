@@ -1,3 +1,6 @@
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const LOADING = 'LOADING';
@@ -5,6 +8,7 @@ export const LOADED_SUCCESS = 'LOADED_SUCCESS';
 export const LOADED_FAILURE = 'LOADED_FAILURE';
 export const FILTER_CATEGORY = 'FILTER_CATEGORY';
 export const SEARCH_QUESTIONS = 'SEARCH_QUESTIONS';
+
 
 const URL_BASE = 'https://preguntas-app.herokuapp.com';
 
@@ -162,5 +166,18 @@ export function filterCategory(category){
 export function searchQuestions(text){
     return function(dispatch){
         dispatch({type: SEARCH_QUESTIONS, payload: text})
+    }
+}
+
+export function createUser(email, password, nombre, apellidos, img){
+    return async dispatch => {
+        dispatch(loading())
+        const auth = firebase.auth();
+        try {
+            await auth.createUserWithEmailAndPassword(email, password);
+            dispatch(success({email, name: nombre+" "+apellidos, img, redirect: `/`}));
+        } catch (error) {
+            dispatch(failure())
+        }
     }
 }

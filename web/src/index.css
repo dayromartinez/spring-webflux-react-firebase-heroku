@@ -321,3 +321,9 @@ body {
   .nombre_usuario{
     margin-top: 1rem;
   }
+
+  .button_google{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

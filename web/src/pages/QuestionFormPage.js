@@ -14,9 +14,16 @@ const FormPage = () => {
     const loading = useSelector((state) => state.loading);
     const redirect = useSelector((state) => state.redirect);
     const userId = useSelector((state) => state.uid);
+    const image = useSelector((state) => state.img);
+    const name = useSelector((state) => state.name);
+    const email = useSelector((state) => state.email);
 
     const onSubmit = data => {
         data.userId = userId;
+        data.image = image;
+        data.name = name;
+        data.email = email;
+        console.log(data);
         dispatch(postQuestion(data));
         Swal.fire({
             icon: "success",

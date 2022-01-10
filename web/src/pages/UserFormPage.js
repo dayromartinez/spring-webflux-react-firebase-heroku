@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from "react-router-dom";
+import { createUser } from '../actions/index.js';
 import Swal from "sweetalert2";
 
 
 export const UserFormPage = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    const redirect = useSelector((state) => state.redirect);
+    const email = useSelector((state) => state.email);
     //const loading = useSelector((state) => state.loading);
     //const hasErrors = useSelector((state) => state.hasErrors);
+
     const [state, setState] = useState({
         nombre: "",
         apellidos: "",
@@ -16,7 +23,32 @@ export const UserFormPage = () => {
         contraseña: "",
         clickRegister: false,
     });
-    
+
+    useEffect(() => {
+        if (redirect) {
+            history.push(redirect);
+        }
+    }, [redirect, history])
+
+    useEffect(() => {
+        if(state.clickRegister){
+            dispatch(createUser(state.correo, state.contraseña, state.nombre, state.apellidos, state.imagen));
+            Swal.fire({
+                icon: "success",
+                title: "Usuario creado!",
+                text: `El usuario ${state.nombre} ha sido creado satisfactoriamente. ¡Bienvenid@! :)`,
+            });
+            setState({
+                nombre: "",
+                apellidos: "",
+                imagen: "",
+                correo: "",
+                contraseña: "",
+                clickRegister: false,
+            })
+        }
+    },[state.clickRegister])
+
     const onSubmit = (e) => {
         
         e.preventDefault();
@@ -28,6 +60,7 @@ export const UserFormPage = () => {
                 ...state,
                 clickRegister: true
             })
+            console.log(email);
         }else{
             setState({
                 ...state,

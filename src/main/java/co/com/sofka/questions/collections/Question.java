@@ -9,6 +9,9 @@ public class Question {
     @Id
     private String id;
     private String userId;
+    private String nameUser;
+    private String emailUser;
+    private String imageUser;
     private String question;
     private String type;
     private String category;
@@ -52,5 +55,29 @@ public class Question {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getNameUser() {
+        return nameUser;
+    }
+
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
+    }
+
+    public String getEmailUser() {
+        return emailUser;
+    }
+
+    public void setEmailUser(String emailUser) {
+        this.emailUser = emailUser;
+    }
+
+    public String getImageUser() {
+        return imageUser;
+    }
+
+    public void setImageUser(String imageUser) {
+        this.imageUser = imageUser;
     }
 }

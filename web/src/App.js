@@ -38,6 +38,7 @@ const App = ({ dispatch }) => {
   const [user] = useAuthState(auth);
   if(user){
     dispatch(login(user.email, user.uid, user.displayName, user.photoURL));
+    console.log(user);
   }
   return (
     <Router>
@@ -81,7 +82,7 @@ function SignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
-  return <button className="button" style={{'marginLeft': '6rem'}} onClick={signInWithGoogle}><FcGoogle /> &nbsp;&nbsp;&nbsp; Iniciar sesión con Google</button>;
+  return <div className='button_google'><button className="button" onClick={signInWithGoogle}><FcGoogle /> &nbsp;&nbsp;&nbsp; Registrarse y/o Iniciar sesión con Google</button>;</div>
 }
 
 function SignOut({ dispatch }) {

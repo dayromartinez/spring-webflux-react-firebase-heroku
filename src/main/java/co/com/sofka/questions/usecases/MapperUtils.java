@@ -29,8 +29,10 @@ public class MapperUtils {
             question.setUserId(updateQuestion.getUserId());
             question.setCategory(updateQuestion.getCategory());
             question.setQuestion(updateQuestion.getQuestion());
-            question.setUserId(updateQuestion.getUserId());
             question.setType(updateQuestion.getType());
+            question.setEmailUser(updateQuestion.getEmailUser());
+            question.setNameUser(updateQuestion.getNameUser());
+            question.setImageUser(updateQuestion.getImageUser());
             return question;
         };
     }

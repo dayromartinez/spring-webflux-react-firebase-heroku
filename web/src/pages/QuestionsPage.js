@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { fetchQuestions, searchQuestions } from '../actions/index.js';
 import { Question } from '../components/Question';
 import { BsSearch } from "react-icons/bs";
-
+import imageDefault from "../imagenes/image_perfil_defecto.png";
 
 const QuestionsPage = () => {
 
@@ -16,7 +16,7 @@ const QuestionsPage = () => {
     const search = useSelector((state) => state.search);
     const img = useSelector((state) => state.img);
     const name = useSelector((state) => state.name);
-    console.log(img);
+    const email = useSelector((state) => state.email);
 
     const [busqueda, setBusqueda] = useState("");
 
@@ -43,8 +43,8 @@ const QuestionsPage = () => {
                 return (
                     <div className='contenedor_pregunta'>
                         <div className='contenedor_info_usuario'>
-                            <img src={img} alt="Imagen usuario" style={{'width': '96px', 'height': '96px'}}/>
-                            <h5 className='nombre_usuario'>{name}</h5>
+                            <img src={img !== null && img !== "" ? img : imageDefault} alt="Imagen usuario" style={{'width': '96px', 'height': '96px'}}/>
+                            <h5 className='nombre_usuario'>{name !== null ? name : email}</h5>
                         </div>
                         <Question key={question.id} question={question} excerpt />
                     </div>
@@ -55,7 +55,7 @@ const QuestionsPage = () => {
                 return (
                     <div className='contenedor_pregunta'>
                         <div className='contenedor_info_usuario'>
-                            <img src={img} alt="Imagen usuario" style={{'width': '96px', 'height': '96px'}}/>
+                            <img src={img !== null && img !== "" ? img : imageDefault} alt="Imagen usuario" style={{'width': '96px', 'height': '96px'}}/>
                             <h5 className='nombre_usuario'>{name}</h5>
                         </div>
                         <Question key={question.id} question={question} excerpt />
