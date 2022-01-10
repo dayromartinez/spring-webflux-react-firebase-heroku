@@ -1,15 +1,34 @@
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const LOADING = 'LOADING';
 export const LOADED_SUCCESS = 'LOADED_SUCCESS';
 export const LOADED_FAILURE = 'LOADED_FAILURE';
+export const FILTER_CATEGORY = 'FILTER_CATEGORY';
+export const SEARCH_QUESTIONS = 'SEARCH_QUESTIONS';
 
-const URL_BASE = 'http://localhost:8080';
+const URL_BASE = 'https://preguntas-app.herokuapp.com';
 
 //Acciones autenticacion
-export const login = (email, uid) => ({ 
-    type: LOGIN, payload: {email, uid} 
+export const login = (email, uid, name, img) => ({ 
+    type: LOGIN, payload: {email, uid, name, img} 
 });
+
+export const loginWithEmail = (email, password) => {
+    return async dispatch => {
+        dispatch(loading())
+        const auth = firebase.auth();
+        try {
+            console.log(email, password);
+            await auth.signInWithEmailAndPassword(email, password);
+            dispatch(success({email, redirect: '/'}));
+        } catch (error) {
+            dispatch(failure())
+        }
+    }
+};
 
 export const logout = () => ({
     type: LOGOUT
@@ -59,7 +78,8 @@ export function fetchQuestion(id) {
         dispatch(loading())
         try {
             const response = await fetch(`${URL_BASE}/get/${id}`)
-            const data = await response.json()
+            const data = await response.json();
+            console.log(data);
             dispatch(success({ question: data, redirect: null }))
         } catch (error) {
             dispatch(failure())
@@ -81,7 +101,7 @@ export function postQuestion(question) {
                     body: JSON.stringify(question)
                 }
             )
-            const id = await response.text()
+            const id = await response.text();
             dispatch(success({redirect: `/question/${id}`}));
         } catch (error) {
             dispatch(failure())
@@ -124,6 +144,52 @@ export function postAnswer(answer) {
                 }
             )
             dispatch(success({redirect: `/question/${answer.questionId}`}));
+        } catch (error) {
+            dispatch(failure())
+        }
+    }
+}
+
+export function deleteAnswer(id) {
+    
+    return async dispatch => {
+        dispatch(loading())
+        try {
+            await fetch(`${URL_BASE}/deleteAnswer/${id}`,
+                {
+                    method: 'DELETE',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            dispatch(success({}));
+        } catch (error) {
+            dispatch(failure())
+        }
+    }
+}
+
+export function filterCategory(category){
+    return function(dispatch){
+        dispatch({type: FILTER_CATEGORY, payload: category})
+    }
+}
+
+export function searchQuestions(text){
+    return function(dispatch){
+        dispatch({type: SEARCH_QUESTIONS, payload: text})
+    }
+}
+
+export function createUser(email, password, nombre, apellidos, img){
+    return async dispatch => {
+        dispatch(loading())
+        const auth = firebase.auth();
+        try {
+            await auth.createUserWithEmailAndPassword(email, password);
+            dispatch(success({email, name: nombre+" "+apellidos, img, redirect: `/`}));
         } catch (error) {
             dispatch(failure())
         }

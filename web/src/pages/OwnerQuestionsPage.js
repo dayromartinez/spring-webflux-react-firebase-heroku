@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOwnerQuestions, deleteQuestion } from '../actions/index.js';
 import { Question } from '../components/Question';
+import Swal from "sweetalert2";
 
 const OwnerQuestionsPage = () => {
 
@@ -24,7 +25,31 @@ const OwnerQuestionsPage = () => {
     }, [redirect, dispatch, userId]);
 
     const onDelete = (id) => {
-        dispatch(deleteQuestion(id))
+
+        Swal.fire({
+            title: '¿Está seguro de que desea eliminar esta pregunta?',
+            showConfirmButton: false,
+            showDenyButton: true,
+            showCancelButton: true,
+            denyButtonText: `Eliminar`,
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Pregunta no eliminada!",
+                    text: `Esta pregunta sigue estando registrada:)`,
+                });
+            } else if (result.isDenied) {
+                dispatch(deleteQuestion(id));
+                Swal.fire({
+                    icon: "info",
+                    title: "Pregunta eliminada!",
+                    text: `La pregunta ha sido eliminada exitosamente.`,
+                })
+            }
+        })
     }
 
 
@@ -39,10 +64,12 @@ const OwnerQuestionsPage = () => {
     }
 
     return (
-        <section>
-            <h1>Mis Preguntas</h1>
-            {renderQuestions()}
-        </section>
+        <div className='div_pregunta_componente'>
+            <section>
+                <h1>Mis Preguntas</h1>
+                {renderQuestions()}
+            </section>
+        </div>
     )
 }
 

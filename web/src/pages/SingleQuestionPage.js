@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuestion } from '../actions/index.js';
 import { Question } from '../components/Question';
 import { Answer } from '../components/Answer';
 import { Link } from 'react-router-dom';
+import { deleteAnswer } from '../actions/index.js';
+import Swal from "sweetalert2";
 
 const SingleQuestionPage = ({ match }) => {
 
@@ -13,7 +15,7 @@ const SingleQuestionPage = ({ match }) => {
   const question = useSelector((state) => state.question);
   const userId = useSelector((state) => state.uid);
   const { id } = match.params;
-
+  const [clickDelete, setClickDelete] = useState(0);
 
   useEffect(() => {
     dispatch(fetchQuestion(id))
@@ -26,9 +28,39 @@ const SingleQuestionPage = ({ match }) => {
     return <Question question={question}/>
   }
 
+  const onDelete = (id) => {
+
+    Swal.fire({
+        title: '¿Está seguro de que desea eliminar esta respuesta?',
+        showConfirmButton: false,
+        showDenyButton: true,
+        showCancelButton: true,
+        denyButtonText: `Eliminar`,
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            Swal.fire({
+                icon: "success",
+                title: "Respuesta no eliminada!",
+                text: `Esta respuesta sigue estando registrada :)`,
+            });
+        } else if (result.isDenied) {
+            dispatch(deleteAnswer(id));
+            setClickDelete(clickDelete + 1);
+            Swal.fire({
+                icon: "info",
+                title: "Respuesta eliminada!",
+                text: `La respuesta ha sido eliminada exitosamente.`,
+            })
+        }
+    })
+  }
+
   const renderAnswers = () => {
+    
     return (question.answers && question.answers.length) ? question.answers.map(answer => (
-      <Answer key={answer.id} answer={answer} />
+      <Answer key={answer.id} answer={answer} excerpt onDelete={onDelete} />
     )) : <p>¡Aún no hay respuestas registradas! No lo pienses más y deja una posible respuesta
       para esta pregunta.
     </p>;

@@ -5,6 +5,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
@@ -17,22 +18,35 @@ import QuestionFormPage from './pages/QuestionFormPage';
 import AnswerFormPage from './pages/AnswerFormPage';
 import OwnerQuestionsPage from './pages/OwnerQuestionsPage';
 import { useAuthState } from "react-firebase-hooks/auth";
+import { FcGoogle } from "react-icons/fc";
+import { FormLogin } from "./components/FormLogin.js";
+import { UserFormPage } from "./pages/UserFormPage.js";
+import Swal from "sweetalert2";
 
 firebase.initializeApp({
-  apiKey: "AIzaSyCTySyvuIDPg7RWF6ceuuwC2t3BEiAK38o",
-  authDomain: "question-app-demo.firebaseapp.com",
-  projectId: "question-app-demo",
-  storageBucket: "question-app-demo.appspot.com",
-  messagingSenderId: "1038673531562",
-  appId: "1:1038673531562:web:da90421f639a3115dcf6d3"
+  apiKey: "AIzaSyC0tsd2w3eGHPZf1i7w4DOPBkMh8xKPCmc",
+  authDomain: "app-preguntas-front.firebaseapp.com",
+  projectId: "app-preguntas-front",
+  storageBucket: "app-preguntas-front.appspot.com",
+  messagingSenderId: "572891950340",
+  appId: "1:572891950340:web:b3b409f82a893b66c37451",
+  measurementId: "G-HFF9NWM8NB"
 });
 
 const auth = firebase.auth();
 
+
 const App = ({ dispatch }) => {
+
+  
   const [user] = useAuthState(auth);
   if(user){
-    dispatch(login(user.email, user.uid))
+    dispatch(login(user.email, user.uid, user.displayName, user.photoURL));
+    Swal.fire({
+      icon: "success",
+      title: "Sesión iniciada!",
+      text: `Bienvenid@ de nuevo a 'Quién quiere ser Sofkiano', ${user.displayName ? user.displayName : "querido usuario!"}!`,
+    })
   }
   return (
     <Router>
@@ -55,8 +69,9 @@ const App = ({ dispatch }) => {
           <PublicNavbar />
           <Switch>
             <Route exact path="/" component={() => {
-              return <HomePage><SignIn dispatch={dispatch} /></HomePage>
+              return <HomePage><FormLogin /><SignIn dispatch={dispatch} /></HomePage>
             }} />
+            <Route exact path="/newUser" component={UserFormPage} />
             <Route exact path="/questions" component={QuestionsPage} />
             <Route exact path="/question/:id" component={SingleQuestionPage} />
             <Route exact path="/answer/:id" component={AnswerFormPage} />
@@ -75,10 +90,11 @@ function SignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
-  return <button className="button right" onClick={signInWithGoogle}>Acceder con Google</button>;
+  return <div className='button_google'><button className="button" onClick={signInWithGoogle}><FcGoogle /> &nbsp;&nbsp;&nbsp; Registrarse y/o Iniciar sesión con Google</button>;</div>
 }
 
 function SignOut({ dispatch }) {
+  const name = useSelector((state) => state.name);
   return (
     auth.currentUser && (
       <button
@@ -86,6 +102,11 @@ function SignOut({ dispatch }) {
         onClick={() => {
           dispatch(logout())
           auth.signOut();
+          Swal.fire({
+            icon: "info",
+            title: "Sesión finalizada!",
+            text: `Hasta pronto, ${name ? name : "querido usuario!"}!`,
+          })
         }}
       >
         Cerrar Sesión

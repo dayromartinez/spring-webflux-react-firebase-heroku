@@ -157,9 +157,173 @@ body {
   }
 
   .componente_inicio{
-    height: 25.8rem;
+    height: 50rem;
+    
   }
 
   .div_pregunta_componente{
     height: 55rem;
+  }
+
+  .boton_categoria{
+    background-color: beige;
+    border: none;
+  }
+
+  .boton_categoria:hover{
+    text-decoration: underline;
+    color: orange;
+    cursor: pointer;
+  }
+
+  .div_questions {
+    height: 111rem;
+  }
+
+  .input_search {
+    margin-bottom: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #111;
+    color:orange;
+    width: 33rem;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .div_preguntas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .autocomplete_item{
+    color: #111;
+    border: none;
+    background-color: beige;
+  }
+
+  .autocomplete_navlink{
+    color:#111;
+    font-size: 12px;
+  }
+
+  .autocomplete_navlink:hover{
+    color: orange;
+    font-weight: bold;
+  }
+
+  .autocomplete_list {
+    margin-left: 8rem;
+  }
+
+  .section_home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .div_login {
+    margin-bottom: 3rem;
+    border-radius: 10px;
+    border: 1px solid #111;
+    background-color:#eee;
+    margin-top: 1rem;
+  }
+
+  .titulo_form_login {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+  }
+
+  .contenedor_input_login {
+    margin-bottom: 1rem;
+  }
+
+  .input_login {
+    border-radius: 5px;
+    border: none;
+    font-size: 15px;
+    background-color: #111;
+    color: orange;
+  }
+
+  .label_login{
+    font-weight: bold;
+  }
+
+  .contenedor_button_login{
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navlink_register{
+    font-size: 15px;
+    color: blue;
+    font-weight: bold;
+  }
+
+  .navlink_register:hover {
+    text-decoration: underline;
+    color: orange;
+  }
+
+  .div_register {
+    display: flex;
+  }
+
+  .text_form_register_user {
+    font-size: 15px;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .titulo_form_register {
+    text-align: center;
+  }
+
+  .contenedor_input_register {
+    margin-bottom: 2rem;
+  }
+
+  .label_register {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .input_register {
+    border: none;
+    border-radius: 5px;
+    background-color: #111;
+    color: orange;
+    font-size: 15px;
+  }
+
+  .contenedor_button_register {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contenedor_pregunta {
+    display: flex;
+    margin-bottom: 2rem;
+  }
+
+  .contenedor_info_usuario{
+    margin-right: 2rem;
+  }
+
+  .nombre_usuario{
+    margin-top: 1rem;
+  }
+
+  .button_google{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

@@ -11,6 +11,9 @@ public class QuestionDTO {
     private String id;
     @NotBlank
     private String userId;
+    private String nameUser;
+    private String emailUser;
+    private String imageUser;
     @NotBlank
     private String question;
     @NotBlank
@@ -31,12 +34,15 @@ public class QuestionDTO {
         this.category = category;
     }
 
-    public QuestionDTO(String id, String userId, String question, String type, String category) {
+    public QuestionDTO(String id, String userId, String question, String type, String category, String nameUser, String emailUser, String imageUser) {
         this.id = id;
         this.userId = userId;
         this.question = question;
         this.type = type;
         this.category = category;
+        this.nameUser = nameUser;
+        this.emailUser = emailUser;
+        this.imageUser = imageUser;
     }
 
     public List<AnswerDTO> getAnswers() {
@@ -86,6 +92,30 @@ public class QuestionDTO {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getNameUser() {
+        return nameUser;
+    }
+
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
+    }
+
+    public String getEmailUser() {
+        return emailUser;
+    }
+
+    public void setEmailUser(String emailUser) {
+        this.emailUser = emailUser;
+    }
+
+    public String getImageUser() {
+        return imageUser;
+    }
+
+    public void setImageUser(String imageUser) {
+        this.imageUser = imageUser;
     }
 
     @Override

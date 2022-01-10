@@ -29,8 +29,10 @@ public class MapperUtils {
             question.setUserId(updateQuestion.getUserId());
             question.setCategory(updateQuestion.getCategory());
             question.setQuestion(updateQuestion.getQuestion());
-            question.setUserId(updateQuestion.getUserId());
             question.setType(updateQuestion.getType());
+            question.setEmailUser(updateQuestion.getEmailUser());
+            question.setNameUser(updateQuestion.getNameUser());
+            question.setImageUser(updateQuestion.getImageUser());
             return question;
         };
     }
@@ -41,15 +43,19 @@ public class MapperUtils {
                 entity.getUserId(),
                 entity.getQuestion(),
                 entity.getType(),
-                entity.getCategory()
+                entity.getCategory(),
+                entity.getNameUser(),
+                entity.getEmailUser(),
+                entity.getImageUser()
         );
     }
 
     public Function<Answer, AnswerDTO> mapEntityToAnswer() {
         return entity -> new AnswerDTO(
-                entity.getId(),
+                entity.getQuestionId(),
                 entity.getUserId(),
-                entity.getAnswer()
+                entity.getAnswer(),
+                entity.getId()
         );
     }
 }
