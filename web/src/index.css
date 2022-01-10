@@ -163,3 +163,14 @@ body {
   .div_pregunta_componente{
     height: 55rem;
   }
+
+  .boton_categoria{
+    background-color: none;
+    border: none;
+  }
+
+  .boton_categoria:hover{
+    text-decoration: underline;
+    color: orange;
+    cursor: pointer;
+  }

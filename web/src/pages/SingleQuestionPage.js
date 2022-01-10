@@ -20,7 +20,6 @@ const SingleQuestionPage = ({ match }) => {
   useEffect(() => {
     dispatch(fetchQuestion(id))
     setClickDelete(false);
-    console.log(clickDelete);
   }, [dispatch, id, clickDelete])
 
   const renderQuestion = () => {
@@ -49,7 +48,6 @@ const SingleQuestionPage = ({ match }) => {
             });
         } else if (result.isDenied) {
             dispatch(deleteAnswer(id));
-            console.log(clickDelete);
             setClickDelete(true);
             Swal.fire({
                 icon: "info",
@@ -61,7 +59,7 @@ const SingleQuestionPage = ({ match }) => {
   }
 
   const renderAnswers = () => {
-    //console.log(question.answers);
+    
     return (question.answers && question.answers.length) ? question.answers.map(answer => (
       <Answer key={answer.id} answer={answer} excerpt onDelete={onDelete} />
     )) : <p>¡Aún no hay respuestas registradas! No lo pienses más y deja una posible respuesta

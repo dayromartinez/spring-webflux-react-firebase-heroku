@@ -3,6 +3,7 @@ export const LOGOUT = 'LOGOUT';
 export const LOADING = 'LOADING';
 export const LOADED_SUCCESS = 'LOADED_SUCCESS';
 export const LOADED_FAILURE = 'LOADED_FAILURE';
+export const FILTER_CATEGORY = 'FILTER_CATEGORY';
 
 const URL_BASE = 'https://preguntas-app.herokuapp.com';
 
@@ -148,5 +149,11 @@ export function deleteAnswer(id) {
         } catch (error) {
             dispatch(failure())
         }
+    }
+}
+
+export function filterCategory(category){
+    return function(dispatch){
+        dispatch({type: FILTER_CATEGORY, payload: category})
     }
 }

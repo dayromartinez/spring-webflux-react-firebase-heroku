@@ -32,6 +32,12 @@ export default function rootReducer(state = initialState, action) {
         case actions.LOGOUT:
             return initialState;
 
+        case actions.FILTER_CATEGORY:
+            const questionsCategory = state.questions.filter(question => {
+                return question.category === action.payload;
+            });
+            return {...state, questions: questionsCategory};
+
         default:
             return state;
     }
