@@ -165,7 +165,7 @@ body {
   }
 
   .boton_categoria{
-    background-color: none;
+    background-color: beige;
     border: none;
   }
 
@@ -173,4 +173,8 @@ body {
     text-decoration: underline;
     color: orange;
     cursor: pointer;
+  }
+
+  .div_questions {
+    height: 111rem;
   }

@@ -24,10 +24,12 @@ const QuestionsPage = () => {
     }
 
     return (
-        <section>
-            <h1>Preguntas</h1>
-            {renderQuestions()}
-        </section>
+        <div className='div_questions'>
+            <section>
+                <h1>Preguntas</h1>
+                {renderQuestions()}
+            </section>
+        </div>
     )
 }
 
