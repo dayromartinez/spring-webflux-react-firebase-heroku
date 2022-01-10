@@ -4,6 +4,7 @@ export const LOADING = 'LOADING';
 export const LOADED_SUCCESS = 'LOADED_SUCCESS';
 export const LOADED_FAILURE = 'LOADED_FAILURE';
 export const FILTER_CATEGORY = 'FILTER_CATEGORY';
+export const SEARCH_QUESTIONS = 'SEARCH_QUESTIONS';
 
 const URL_BASE = 'https://preguntas-app.herokuapp.com';
 
@@ -155,5 +156,11 @@ export function deleteAnswer(id) {
 export function filterCategory(category){
     return function(dispatch){
         dispatch({type: FILTER_CATEGORY, payload: category})
+    }
+}
+
+export function searchQuestions(text){
+    return function(dispatch){
+        dispatch({type: SEARCH_QUESTIONS, payload: text})
     }
 }

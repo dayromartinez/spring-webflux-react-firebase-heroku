@@ -6,6 +6,7 @@ export const initialState = {
     hasErrors: false,
     questions: [],
     question: {},
+    search: [],
     redirect: null,
     email: null,
     uid: null
@@ -37,6 +38,12 @@ export default function rootReducer(state = initialState, action) {
                 return question.category === action.payload;
             });
             return {...state, questions: questionsCategory};
+
+        case actions.SEARCH_QUESTIONS:
+            const coincidencias = state.questions.filter(question => {
+                return question.question.toLowerCase().includes(action.payload.toLowerCase());
+            })
+            return {...state, search: coincidencias}
 
         default:
             return state;
