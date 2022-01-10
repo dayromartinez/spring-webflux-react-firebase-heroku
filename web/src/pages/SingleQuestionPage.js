@@ -19,7 +19,7 @@ const SingleQuestionPage = ({ match }) => {
 
   useEffect(() => {
     dispatch(fetchQuestion(id))
-  }, [dispatch, id, loading])
+  }, [dispatch, id])
 
   const renderQuestion = () => {
     if (loading.question) return <p>Cargando pregunta...</p>

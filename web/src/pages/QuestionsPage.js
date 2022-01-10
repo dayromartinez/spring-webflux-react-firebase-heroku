@@ -40,11 +40,12 @@ const QuestionsPage = () => {
 
         if(busqueda === ""){
             return questions.map(question => {
+                console.log(question);
                 return (
                     <div className='contenedor_pregunta'>
                         <div className='contenedor_info_usuario'>
-                            <img src={img !== null && img !== "" ? img : imageDefault} alt="Imagen usuario" style={{'width': '96px', 'height': '96px'}}/>
-                            <h5 className='nombre_usuario'>{name !== null ? name : email}</h5>
+                            <img src={question.imageUser !== null && question.imageUser !== "" ? question.imageUser : imageDefault} alt="Imagen usuario" style={{'width': '96px', 'height': '96px'}}/>
+                            <h5 className='nombre_usuario'>{question.nameUser !== null && question.nameUser !== "" ? question.nameUser : "Nombre no disponible"}</h5>
                         </div>
                         <Question key={question.id} question={question} excerpt />
                     </div>
@@ -55,7 +56,7 @@ const QuestionsPage = () => {
                 return (
                     <div className='contenedor_pregunta'>
                         <div className='contenedor_info_usuario'>
-                            <img src={img !== null && img !== "" ? img : imageDefault} alt="Imagen usuario" style={{'width': '96px', 'height': '96px'}}/>
+                            <img src={question.imageUser !== null && question.imageUser !== "" ? question.imageUser : imageDefault} alt="Imagen usuario" style={{'width': '96px', 'height': '96px'}}/>
                             <h5 className='nombre_usuario'>{name}</h5>
                         </div>
                         <Question key={question.id} question={question} excerpt />

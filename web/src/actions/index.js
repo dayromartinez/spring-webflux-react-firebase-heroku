@@ -65,7 +65,8 @@ export function fetchQuestion(id) {
         dispatch(loading())
         try {
             const response = await fetch(`${URL_BASE}/get/${id}`)
-            const data = await response.json()
+            const data = await response.json();
+            console.log(data);
             dispatch(success({ question: data, redirect: null }))
         } catch (error) {
             dispatch(failure())
