@@ -51,7 +51,17 @@ const QuestionsPage = () => {
                 )
         })
         }else{
-            return search.map(question => <Question key={question.id} question={question} excerpt />)
+            return search.map(question => {
+                return (
+                    <div className='contenedor_pregunta'>
+                        <div className='contenedor_info_usuario'>
+                            <img src={img} alt="Imagen usuario" style={{'width': '96px', 'height': '96px'}}/>
+                            <h5 className='nombre_usuario'>{name}</h5>
+                        </div>
+                        <Question key={question.id} question={question} excerpt />
+                    </div>
+                )
+            })
         }
     }
 
