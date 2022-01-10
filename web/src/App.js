@@ -17,6 +17,9 @@ import QuestionFormPage from './pages/QuestionFormPage';
 import AnswerFormPage from './pages/AnswerFormPage';
 import OwnerQuestionsPage from './pages/OwnerQuestionsPage';
 import { useAuthState } from "react-firebase-hooks/auth";
+import { FcGoogle } from "react-icons/fc";
+import { FormLogin } from "./components/FormLogin.js";
+import { UserFormPage } from "./pages/UserFormPage.js";
 
 firebase.initializeApp({
   apiKey: "AIzaSyC0tsd2w3eGHPZf1i7w4DOPBkMh8xKPCmc",
@@ -56,8 +59,9 @@ const App = ({ dispatch }) => {
           <PublicNavbar />
           <Switch>
             <Route exact path="/" component={() => {
-              return <HomePage><SignIn dispatch={dispatch} /></HomePage>
+              return <HomePage><FormLogin /><SignIn dispatch={dispatch} /></HomePage>
             }} />
+            <Route exact path="/newUser" component={UserFormPage} />
             <Route exact path="/questions" component={QuestionsPage} />
             <Route exact path="/question/:id" component={SingleQuestionPage} />
             <Route exact path="/answer/:id" component={AnswerFormPage} />
@@ -76,7 +80,7 @@ function SignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
-  return <button className="button right" onClick={signInWithGoogle}>Acceder con Google</button>;
+  return <button className="button" style={{'marginLeft': '6rem'}} onClick={signInWithGoogle}><FcGoogle /> &nbsp;&nbsp;&nbsp; Iniciar sesión con Google</button>;
 }
 
 function SignOut({ dispatch }) {
