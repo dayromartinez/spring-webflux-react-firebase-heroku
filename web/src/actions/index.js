@@ -9,8 +9,8 @@ export const SEARCH_QUESTIONS = 'SEARCH_QUESTIONS';
 const URL_BASE = 'https://preguntas-app.herokuapp.com';
 
 //Acciones autenticacion
-export const login = (email, uid) => ({ 
-    type: LOGIN, payload: {email, uid} 
+export const login = (email, uid, name, img) => ({ 
+    type: LOGIN, payload: {email, uid, name, img} 
 });
 
 export const logout = () => ({

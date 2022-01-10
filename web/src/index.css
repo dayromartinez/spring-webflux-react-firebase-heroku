@@ -308,3 +308,16 @@ body {
     display: flex;
     flex-direction: column;
   }
+
+  .contenedor_pregunta {
+    display: flex;
+    margin-bottom: 2rem;
+  }
+
+  .contenedor_info_usuario{
+    margin-right: 2rem;
+  }
+
+  .nombre_usuario{
+    margin-top: 1rem;
+  }
