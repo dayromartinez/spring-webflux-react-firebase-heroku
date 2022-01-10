@@ -43,7 +43,10 @@ public class MapperUtils {
                 entity.getUserId(),
                 entity.getQuestion(),
                 entity.getType(),
-                entity.getCategory()
+                entity.getCategory(),
+                entity.getNameUser(),
+                entity.getEmailUser(),
+                entity.getImageUser()
         );
     }
 

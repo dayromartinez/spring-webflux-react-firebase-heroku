@@ -87,7 +87,7 @@ export function postQuestion(question) {
                     body: JSON.stringify(question)
                 }
             )
-            const id = await response.text()
+            const id = await response.text();
             dispatch(success({redirect: `/question/${id}`}));
         } catch (error) {
             dispatch(failure())

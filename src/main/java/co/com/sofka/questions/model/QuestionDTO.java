@@ -27,7 +27,15 @@ public class QuestionDTO {
 
     }
 
-    public QuestionDTO(String userId, String question, String type, String category, String nameUser, String emailUser, String imageUser) {
+    public QuestionDTO(String userId, String question, String type, String category) {
+        this.userId = userId;
+        this.question = question;
+        this.type = type;
+        this.category = category;
+    }
+
+    public QuestionDTO(String id, String userId, String question, String type, String category, String nameUser, String emailUser, String imageUser) {
+        this.id = id;
         this.userId = userId;
         this.question = question;
         this.type = type;
@@ -35,14 +43,6 @@ public class QuestionDTO {
         this.nameUser = nameUser;
         this.emailUser = emailUser;
         this.imageUser = imageUser;
-    }
-
-    public QuestionDTO(String id, String userId, String question, String type, String category) {
-        this.id = id;
-        this.userId = userId;
-        this.question = question;
-        this.type = type;
-        this.category = category;
     }
 
     public List<AnswerDTO> getAnswers() {

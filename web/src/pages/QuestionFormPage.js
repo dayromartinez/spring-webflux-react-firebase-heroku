@@ -20,9 +20,9 @@ const FormPage = () => {
 
     const onSubmit = data => {
         data.userId = userId;
-        data.image = image;
-        data.name = name;
-        data.email = email;
+        data.imageUser = image;
+        data.nameUser = name;
+        data.emailUser = email;
         console.log(data);
         dispatch(postQuestion(data));
         Swal.fire({
