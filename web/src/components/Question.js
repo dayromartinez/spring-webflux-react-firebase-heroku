@@ -14,7 +14,7 @@ export const Question = ({ question, excerpt, onDelete }) => {
   
   return (
     <article className={excerpt ? 'question-excerpt' : 'question'}>
-      <h2>{question.question}</h2>
+      <h2 dangerouslySetInnerHTML={{__html: question.question}}></h2>
       <p><button className="boton_categoria" onClick={() => filter(question.category)}>{question.category}</button> 
       - <small>{question.type}</small></p>
   

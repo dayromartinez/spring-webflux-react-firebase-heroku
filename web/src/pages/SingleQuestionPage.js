@@ -15,11 +15,18 @@ const SingleQuestionPage = ({ match }) => {
   const question = useSelector((state) => state.question);
   const userId = useSelector((state) => state.uid);
   const { id } = match.params;
-  const [clickDelete, setClickDelete] = useState(0);
+  const [clickDelete, setClickDelete] = useState(false);
 
   useEffect(() => {
     dispatch(fetchQuestion(id))
   }, [dispatch, id])
+
+  useEffect(() => {
+    if(clickDelete){
+      dispatch(fetchQuestion(id));
+      setClickDelete(false);
+    }
+  }, [clickDelete])
 
   const renderQuestion = () => {
     if (loading.question) return <p>Cargando pregunta...</p>
@@ -28,7 +35,7 @@ const SingleQuestionPage = ({ match }) => {
     return <Question question={question}/>
   }
 
-  const onDelete = (id) => {
+  const onDelete = async (idAnswer) => {
 
     Swal.fire({
         title: '¿Está seguro de que desea eliminar esta respuesta?',
@@ -45,9 +52,10 @@ const SingleQuestionPage = ({ match }) => {
                 title: "Respuesta no eliminada!",
                 text: `Esta respuesta sigue estando registrada :)`,
             });
-        } else if (result.isDenied) {
-            dispatch(deleteAnswer(id));
-            setClickDelete(clickDelete + 1);
+        } else if (result.isDenied) {       
+            dispatch(deleteAnswer(idAnswer));
+            dispatch(fetchQuestion(id));
+            setClickDelete(true);
             Swal.fire({
                 icon: "info",
                 title: "Respuesta eliminada!",
