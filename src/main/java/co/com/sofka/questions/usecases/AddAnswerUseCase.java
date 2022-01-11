@@ -36,8 +36,8 @@ public class AddAnswerUseCase implements SaveAnswer {
                             question.getAnswers().add(answerDTO);
                             sendEmailService.sendEmail(
                                     question.getEmailUser(),
-                                    "Se ha añadido una nueva respuesta a tu pregunta: '" + question.getQuestion()+"'",
-                                    "He aquí la respuesta: '" + answer.getAnswer()+"'. Entra a la web de 'Quién quiere ser Sofkiano' para ver todos los detalles! Te esperamos ;)");
+                                    "Se ha agregado una nueva respuesta a tu pregunta: '" + question.getQuestion()+"'",
+                                    "La nueva respuesta: '" + answer.getAnswer()+"'. Entra a la web de 'Quien quiere ser Sofkiano' para ver todos los detalles! Te esperamos ;)");
                             return question;
                         })
         );
