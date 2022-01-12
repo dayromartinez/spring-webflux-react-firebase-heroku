@@ -31,7 +31,6 @@ const SingleQuestionPage = ({ match }) => {
   const renderQuestion = () => {
     if (loading.question) return <p>Cargando pregunta...</p>
     if (hasErrors.question) return <p>No ha sido posible mostrar esta pregunta.</p>
-
     return <Question question={question}/>
   }
 

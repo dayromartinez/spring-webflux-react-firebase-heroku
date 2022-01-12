@@ -85,7 +85,7 @@ const FormPage = ({ match }) => {
                     }}
                     onChange={handleEditorChange}
                 />
-                <button type="submit" className="button" disabled={loading}>{
+                <button type="submit" className="button" disabled={loading} style={{'marginTop': '2rem'}}>{
                     loading ? "Guardando...." : "Enviar"
                 }</button>
             </form>

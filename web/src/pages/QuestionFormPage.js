@@ -76,7 +76,7 @@ const FormPage = () => {
                 </div>
 
                 <div>
-                    <h6 for="question">Pregunta</h6>
+                    <h2 for="question">Pregunta</h2>
                     <Editor
                     apiKey="32h1d3e0zuqsrqr9s37wmt7zvdic2gwc45c2ogpgjw7ttu0s"
                     initialValue="<h4>Escribe aquí tu pregunta...</h4>"
@@ -97,7 +97,7 @@ const FormPage = () => {
                     onChange={handleEditorChange}
                 />
                 </div>
-                <button type="submit" className="button" disabled={loading} >{
+                <button type="submit" className="button" disabled={loading} style={{'marginTop': '2rem'}}>{
                     loading ? "Guardando...." : "Enviar"
                 }</button>
             </form>
