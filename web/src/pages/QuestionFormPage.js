@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { postQuestion } from '../actions/index.js';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from "sweetalert2";
+import { Editor } from '@tinymce/tinymce-react'; 
 
 const FormPage = () => {
 
@@ -17,12 +18,14 @@ const FormPage = () => {
     const image = useSelector((state) => state.img);
     const name = useSelector((state) => state.name);
     const email = useSelector((state) => state.email);
+    const [question, setQuestion] = useState("");
 
     const onSubmit = data => {
         data.userId = userId;
         data.imageUser = image;
         data.nameUser = name;
         data.emailUser = email;
+        data.question = question;
         console.log(data);
         dispatch(postQuestion(data));
         Swal.fire({
@@ -37,6 +40,14 @@ const FormPage = () => {
             history.push(redirect);
         }
     }, [redirect, history])
+
+    const handleEditorChange = (e) => {
+        console.log(
+            'Content was updated:',
+            e.target.getContent()
+        )
+        setQuestion(e.target.getContent());
+    }
 
     return (
         <section>
@@ -65,10 +76,28 @@ const FormPage = () => {
                 </div>
 
                 <div>
-                    <label for="question">Pregunta</label>
-                    <textarea id="question" {...register("question", { required: true, maxLength: 300 })} />
+                    <h2 for="question">Pregunta</h2>
+                    <Editor
+                    apiKey="32h1d3e0zuqsrqr9s37wmt7zvdic2gwc45c2ogpgjw7ttu0s"
+                    initialValue="<h4>Escribe aquí tu pregunta...</h4>"
+                    init={{
+                    height: 500,
+                    menubar: true,
+                    plugins: [
+                        'advlist autolink lists link image', 
+                        'charmap print preview anchor help',
+                        'searchreplace visualblocks code',
+                        'insertdatetime media table paste wordcount'
+                    ],
+                    toolbar:
+                        'undo redo | formatselect | bold italic | \
+                        alignleft aligncenter alignright | \
+                        bullist numlist outdent indent | help'
+                    }}
+                    onChange={handleEditorChange}
+                />
                 </div>
-                <button type="submit" className="button" disabled={loading} >{
+                <button type="submit" className="button" disabled={loading} style={{'marginTop': '2rem'}}>{
                     loading ? "Guardando...." : "Enviar"
                 }</button>
             </form>

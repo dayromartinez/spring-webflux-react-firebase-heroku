@@ -27,11 +27,12 @@ public class QuestionDTO {
 
     }
 
-    public QuestionDTO(String userId, String question, String type, String category) {
+    public QuestionDTO(String userId, String question, String type, String category, String emailUser) {
         this.userId = userId;
         this.question = question;
         this.type = type;
         this.category = category;
+        this.emailUser = emailUser;
     }
 
     public QuestionDTO(String id, String userId, String question, String type, String category, String nameUser, String emailUser, String imageUser) {

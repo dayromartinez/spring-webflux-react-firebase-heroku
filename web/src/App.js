@@ -90,7 +90,7 @@ function SignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
-  return <div className='button_google'><button className="button" onClick={signInWithGoogle}><FcGoogle /> &nbsp;&nbsp;&nbsp; Registrarse y/o Iniciar sesión con Google</button>;</div>
+  return <div className='button_google'><button className="button" onClick={signInWithGoogle}><FcGoogle /> &nbsp;&nbsp;&nbsp; Registrarse y/o Iniciar sesión con Google</button></div>
 }
 
 function SignOut({ dispatch }) {

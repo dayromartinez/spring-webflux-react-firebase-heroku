@@ -1,18 +1,16 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { fetchQuestion, postAnswer } from '../actions/index.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { Question } from '../components/Question';
 import Swal from "sweetalert2";
-
+import { Editor } from '@tinymce/tinymce-react'; 
 
 const FormPage = ({ match }) => {
 
-
-    const { register, handleSubmit } = useForm();
     const history = useHistory();
     const dispatch = useDispatch();
+    const [answer, setAnswer] = useState("");
 
     const loading = useSelector((state) => state.loading);
     const redirect = useSelector((state) => state.redirect);
@@ -22,20 +20,25 @@ const FormPage = ({ match }) => {
     const { id } = match.params;
     
 
-    const onSubmit = (data) => {
-        data.userId = userId;
-        data.questionId = id;
+    const onSubmit = (e) => {
+        
+        e.preventDefault();
+        const data = {
+            answer: answer,
+            userId : userId,
+            questionId : id
+        }
         dispatch(postAnswer(data));
         Swal.fire({
             icon: "success",
             title: "Respuesta creada!",
-            text: `La respuesta para esta pregunta ha sido registrada con éxito :)`,
+            text: `La respuesta ha sido registrada satisfactoriamente :)`,
         });
     };
 
     useEffect(() => {
         dispatch(fetchQuestion(id))
-    }, [dispatch, id])
+    }, [dispatch])
 
     useEffect(() => {
         if (redirect) {
@@ -50,23 +53,43 @@ const FormPage = ({ match }) => {
         return <Question question={question} />
     }
 
+    const handleEditorChange = (e) => {
+        console.log(
+            'Content was updated:',
+            e.target.getContent()
+        )
+        setAnswer(e.target.getContent());
+    }
 
     return (
         <section>
             {renderQuestion()}
-            <h1>Nueva Respuesta</h1>
-
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label for="answer">Respuesta</label>
-                    <textarea id="answer" {...register("answer", { required: true, maxLength: 300 })} />
-                </div>
-                <button type="submit" className="button" disabled={loading}>{
+            <h2>Nueva Respuesta</h2>
+            <form onSubmit={onSubmit}>
+                <Editor
+                    apiKey="32h1d3e0zuqsrqr9s37wmt7zvdic2gwc45c2ogpgjw7ttu0s"
+                    initialValue="<h4>Escribe aquí tu respuesta...</h4>"
+                    init={{
+                    height: 500,
+                    menubar: true,
+                    plugins: [
+                        'advlist autolink lists link image', 
+                        'charmap print preview anchor help',
+                        'searchreplace visualblocks code',
+                        'insertdatetime media table paste wordcount'
+                    ],
+                    toolbar:
+                        'undo redo | formatselect | bold italic | \
+                        alignleft aligncenter alignright | \
+                        bullist numlist outdent indent | help'
+                    }}
+                    onChange={handleEditorChange}
+                />
+                <button type="submit" className="button" disabled={loading} style={{'marginTop': '2rem'}}>{
                     loading ? "Guardando...." : "Enviar"
                 }</button>
             </form>
         </section>
-
     );
 }
 
